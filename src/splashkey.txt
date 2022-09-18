@@ -1,0 +1,5 @@
+xBkFLQz7oczyPM8EoxbT5tB83ZhEMqC6qABrVwKcFxI
+
+You can also pass this value using a client_id query parameter:
+
+https://api.unsplash.com/photos/?client_id=YOUR_ACCESS_KEY
