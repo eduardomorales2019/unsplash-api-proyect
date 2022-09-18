@@ -28,7 +28,8 @@ function App() {
       // const response = await fetch(url);
 
       const { data } = await axios(url);
-      console.log(data);
+      setImages(data);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -39,13 +40,33 @@ function App() {
     fetchingInfo();
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("hola ");
+  };
+
   return (
     <ErrorBondary>
-      <div className="App">
-        <h2>Splash Stock Image App </h2>
-        <FaSearch />
-        <Image />
-      </div>
+      <main>
+        <h2 className="h2-title">unSplash-App- Exercice </h2>
+        <section className="search">
+          <form className="search-form">
+            <input type="text" placeholder="search" className="form-input" />
+            <button type="submit" className="submit-btn" onClick={handleSubmit}>
+              <FaSearch />
+            </button>
+          </form>
+          {/* <Image /> */}
+        </section>
+        <section className="photos">
+          <div className="photos-center">
+            {image.map((images, index) => {
+              return <Image key={index} {...images} />;
+            })}
+          </div>
+          {loading && <h2 className="loading">Loading... </h2>}
+        </section>
+      </main>
     </ErrorBondary>
   );
 }
