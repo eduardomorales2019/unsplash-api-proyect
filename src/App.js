@@ -40,6 +40,23 @@ function App() {
     fetchingInfo();
   }, []);
 
+  // useEfect for images at scroll down!
+  // use effect is good for  set  eventlisteners.
+  React.useEffect(() => {
+    // window object from javascript use for now the pixers in our inner window to detect the scrool.
+    const event = window.addEventListener("scroll", () => {
+      //  if loading is not there,  the set up that we are try in to avoid is when i hot the bottom, keep fetching the data.-
+      if (
+        !loading &&
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 2
+      ) {
+        console.log("funciono");
+      }
+    });
+
+    return () => window.removeEventListener("scroll", event);
+  }, []);
+  // ==========0
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("hola ");

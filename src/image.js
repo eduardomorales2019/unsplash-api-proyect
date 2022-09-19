@@ -14,8 +14,13 @@ const Image = ({
     <article className="photo">
       <img src={regular} alt={alt_description}></img>
       <div className="photo-info">
-        <h4>{name}</h4>
-        <p>{likes} likes</p>
+        <div>
+          <h4>{name}</h4>
+          <p>{likes} likes</p>
+        </div>
+        <a href={portofolio_url}>
+          <img src={medium} alt={name} className="user-img"></img>
+        </a>
       </div>
     </article>
   );
