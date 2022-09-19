@@ -18,17 +18,24 @@ function App() {
 
   const [loading, setLoading] = useState(false);
   const [image, setImages] = useState([]);
+  const [page, setPage] = useState(1);
 
+  // ===========SET FETCHING
   const fetchingInfo = async () => {
     setLoading(true);
-    let url;
-    url = `${mainUrl}${clientIdENV}`;
+    let urlpage = `&page=${page}`;
+    let url = `${mainUrl}${clientIdENV}${urlpage}`;
 
     try {
       // const response = await fetch(url);
 
       const { data } = await axios(url);
-      setImages(data);
+
+      // SET THE FUNTION AS WE SCROLL DOWN WE INSERT THAT DATA AND THE NEW DATA., OLD AND NEW..
+      //  COPY OF OLD IMAGES AND THEN A COPY OF THE DATA.. ALL IN AND ARRAY..
+      setImages((oldimages) => {
+        return [...oldimages, ...data];
+      });
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -36,9 +43,10 @@ function App() {
     }
   };
 
+  // FETCH THE IMAGES, WHEN THE PAGE CHANGES, THAT MEAN IF WE SET THE PAGE IN DE DEPENDENCY ARRAY
   React.useEffect(() => {
     fetchingInfo();
-  }, []);
+  }, [page]);
 
   // useEfect for images at scroll down!
   // use effect is good for  set  eventlisteners.
@@ -50,7 +58,9 @@ function App() {
         !loading &&
         window.innerHeight + window.scrollY >= document.body.scrollHeight - 2
       ) {
-        console.log("funciono");
+        setPage((oldpage) => {
+          return oldpage + 1;
+        });
       }
     });
 
@@ -65,7 +75,7 @@ function App() {
   return (
     <ErrorBondary>
       <main>
-        <h2 className="h2-title">unSplash-App- Exercice </h2>
+        <h2 className="h2-title">unSplash-App </h2>
         <section className="search">
           <form className="search-form">
             <input type="text" placeholder="search" className="form-input" />
